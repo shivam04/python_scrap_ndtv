@@ -11,6 +11,7 @@ https://docs.mongodb.com/manual/installation/
 #Run Mongodb Server in command Prompt:-
 "C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe"
 
+#Setup Project:-
 #Installation:
 1. virtualenv folder-name
 2. cd folder-name
