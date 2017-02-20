@@ -1,4 +1,5 @@
 # python_scrap_ndtv
+Scrapping NDTV world news and store them in mongodb and use private api to retrieve them.
 #Setup MongoDB
 
 #Install Mongodb
