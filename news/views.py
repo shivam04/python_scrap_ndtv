@@ -3,7 +3,7 @@ from mongoengine import *
 from .models import NewsNdtv
 import articletext
 # Create your views here.
-def index(request):
+def scrap(request):
 	entry = ""
 	for i in range(1,15):
 		url ="http://www.ndtv.com/world-news/page-"+str(i) 
