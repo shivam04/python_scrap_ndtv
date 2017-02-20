@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import django
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,8 +27,7 @@ SECRET_KEY = '92vi2xe^uq3ye^pnh-9+)8xw#0s$1g4#$s7azy_7t)(ornu0og'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+# django.setup()
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,9 +40,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'markdown_deux',
+    # 'mongoengine'
+    # 'django.contrib.auth',
+    # 'mongoengine.django.mongo_auth'
+    # 'mongoengine',
+    # 'django-mongoadmin'
+    # # 'django-mongoengine'
+    # 'mongoengine.django.sessions'
+    # 'mongoadmin',
+    # 'mongoengine.django.mongo_auth',
     'pagedown',
     'news',
+    'accounts',
+    # 'mongo_auth',
 ]
+#MONGOADMIN_OVERRIDE_ADMIN = True
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +94,8 @@ WSGI_APPLICATION = 'sinha.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -130,9 +143,15 @@ STATICFILES_DIRS = [
     #'/var/www/static/',
 ]
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
+# AUTHENTICATION_BACKENDS = ( 
+#            'mongoengine.django.auth.MongoEngineBackend',
+#  )
+# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+# MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
 from mongoengine import connect
-#SESSION_ENGINE = 'mongoengine.django.sessions'
-#SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+# SESSION_ENGINE = 'mongoengine.django.sessions'
+# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+
 connect('ndtv', username='', password='')
 REST_FRAMEWORK = {
   'DEFAULT_RENDERER_CLASSES': (
@@ -142,3 +161,5 @@ REST_FRAMEWORK = {
     'rest_framework_xml.renderers.XMLRenderer',
   )
 }
+# SESSION_ENGINE = 'mongoengine.django.sessions'
+# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'

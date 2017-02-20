@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from news.views import scrap
+from news.views import scrap,news_xml,news_json
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^admin/', accounts.site.urls),
+    url(r'^accounts/',include("accounts.urls",namespace='accounts')),
     url(r'^api/',include("news.api.urls",namespace='news-api')),
+    url(r'^(?P<key>[\w-]+)/xml/',news_xml),
+    url(r'^(?P<key>[\w-]+)/json/',news_json),
     url(r'^', scrap),
 ]
 if settings.DEBUG:

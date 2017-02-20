@@ -10,5 +10,5 @@ from rest_framework.generics import (
 from .pagination import PostLimitOffsetPagination,PostPageNumberPagination
 class NewsList(ListAPIView):
     queryset = NewsNdtv.objects.all()
-    pagination_class = PostPageNumberPagination
+    #pagination_class = PostPageNumberPagination
     serializer_class = NewsListSerializer

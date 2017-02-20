@@ -1,0 +1,16 @@
+{% if key %}
+	Your Key is {{ key }} please save it.
+	Look news <a href="/{{ key }}/json/">Json</a> <a href="/{{ key }}/xml/">XML</a>
+{% else %}
+{% load crispy_forms_tags %}
+
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>{{ title }}</h1>
+<hr/>
+<form method='POST' action='' enctype="multipart/form-data">{% csrf_token %}
+{{ form|crispy }}
+
+<input type="submit" value="{{ title }}"/>
+</form>
+</div>
+{% endif %}

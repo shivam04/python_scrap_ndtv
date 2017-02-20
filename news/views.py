@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from mongoengine import *
 from .models import NewsNdtv
 import articletext
-# Create your views here.
+from rest_framework.test import RequestsClient,APIRequestFactory
+from django.http import HttpResponse , HttpResponseRedirect , Http404
+from accounts.models import Profile
+import json
 def scrap(request):
 	entry = ""
 	for i in range(1,15):
@@ -24,3 +27,41 @@ def scrap(request):
 	entry = news.title
 	print entry
 	return render(request,'index.html',{'entry':entry})
+
+def news_json(request,key=None):
+	error = ""
+	print request.user
+	if not request.user:
+		print "login"
+		return redirect('/accounts/login/')
+	elif key == None:
+		print "key"
+		return redirect('/accounts/login/')
+	else:
+		profile = Profile.objects.filter(token=key).first()
+		if profile is None:
+			error = "Wrong Key"
+			return render(request,"ff.html",{'error':error})
+		else:
+			host =  request.META['HTTP_HOST'] 
+			url =  'http://'+host+'/api/?format=json'
+			client = RequestsClient()
+			data = client.get(url).json()
+			return render(request,"ff.html",{'s':data})
+def news_xml(request,key=None):
+	error = ""
+	if not request.user:
+		return redirect('/accounts/login/')
+	elif key == None:
+		return redirect('/accounts/login/')
+	else:
+		profile = Profile.objects.filter(token=key).first()
+		if profile is None:
+			error = "Wrong Key"
+			return render(request,"ff.html",{'error':error})
+		else:
+			host =  request.META['HTTP_HOST'] 
+			url =  'http://'+host+'/api/?format=xml'
+			client = RequestsClient()
+			data = client.get(url)
+			return render(request,"ff.html",{'s':data})

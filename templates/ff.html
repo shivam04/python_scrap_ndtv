@@ -1,0 +1,8 @@
+{% if error %}
+	{{ error }}
+{% else %}
+	{% for f in s %}
+		{{ f }}
+		<br>
+	{% endfor %}
+{% endif %}
